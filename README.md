@@ -9,7 +9,15 @@
 - Para desenvolvedores:
 `npm run dev`
 
+
+Crie ou edite seu arquivo .env na raiz do projeto com as seguintes variavaeis:
+
+
+`DB_URL= ADD-ULR-E-PORTA-DO-SEU-BANCO-MONGODB`
+`PORT= PORTA-QUE-VAI-RODAR-ESTA-API`
+
 ---
+
 
 ---
 
