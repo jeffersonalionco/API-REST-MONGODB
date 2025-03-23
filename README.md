@@ -1,3 +1,19 @@
+
+
+
+#### Inicializar o projeto
+
+- Para rodar o projeto apenas:
+`npm run start`
+
+- Para desenvolvedores:
+`npm run dev`
+
+---
+
+---
+
+
 ## FUNÇÃO BANCO DE DADOS
 
 #### ROTA PARA CADASTRAR UM NOVO USUÁRIO
