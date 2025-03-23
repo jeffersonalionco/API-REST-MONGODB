@@ -60,12 +60,43 @@ export const searchInventary = async (req, res) =>{
         if(!inventario){
             return res.status(400).json({error: "Não existe inventario para este usuario"})
         }
-        
-        res.status(200).json({
-            data: inventario
-        })
+
+        res.status(200).json({ inventario })
 
     }catch(errorr){
         res.status(400).json({error: "Erro ao buscar dados so inventario", errorr})
     }
+}
+
+
+// Rota para atualizar dados do inventario do usuario
+export const updateItemInventary = async (req, res) => {
+    const { idWhatsapp, idItem } = req.params
+    const dados = req.body
+
+    try {
+
+        const user = await User.findOne({ idWhatsapp: idWhatsapp})
+        if(!user) return res.status(400).send("Usuario nao existe no banco de dados")
+
+        const inventario = await Inventario.findOne({ usuarioId: user._id })
+        if(!inventario) return res.status(400).send("Não existe inventario para este usuario.")
+
+        // Encontrando item dentro do inventario do usuario
+        const item = inventario.items.find(item => item.idItem === idItem )
+
+        // Atualizando dados commo foi enviado no escopo da requisição
+        Object.assign(item, dados) // apenas os campos informado serão alterados
+
+
+        // Salvar mudanças no item
+        await inventario.save()
+
+        res.status(200).json({message: "Alterações salvas com sucesso", data: item})
+        
+    } catch (errorr) {
+        return res.status(400).json({error: "Erro ao atualizar os dados do item", errorr})
+    }
+
+
 }

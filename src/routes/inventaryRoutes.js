@@ -1,5 +1,5 @@
 import express from 'express';
-import { createInventary, searchInventary} from "../controllers/inventoryController.js";
+import { createInventary, searchInventary, updateItemInventary} from "../controllers/inventoryController.js";
 
 const router = express.Router();
 
@@ -7,5 +7,8 @@ const router = express.Router();
 router.post('/createInventary', createInventary);
 // Rota para buscar dados do inventario do usuario pelo id do whatsapp
 router.post('/searchInventary', searchInventary);
+// Rota para atualizar itens dentro do inventario
+router.patch('/updateItemInvetary/:idWhatsapp/item/:idItem', updateItemInventary)
+
 
 export default router;

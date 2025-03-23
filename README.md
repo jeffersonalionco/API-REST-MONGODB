@@ -50,13 +50,20 @@
 
 | TIPO  | ROTA                         | O QUE SE ESPERA                                            |
 |-------|------------------------------|-----------------------------------------------------------|
-| POST  | `/api/inventory/createInventary`| JSON: `{ "usuarioId": String, "items": [ { "nomeItem": String, "quatidade": Number}] }`                                |
+| POST  | `/api/inventory/createInventary`| JSON: `{ "usuarioId": String, "items": [ { "*idItem" : String, *"nomeItem": String, *"quatidade": Number, "xp": Number , "dano": Number, "defesa": Number}] }`                                |
 
 #### ROTA PARA BUSCAR DADOS INVENTARIO
 
 | TIPO  | ROTA                         | O QUE SE ESPERA                                            |
 |-------|------------------------------|-----------------------------------------------------------|
 | POST  | `/api/inventory/searchInventary` | JSON: `{ "idWhatsapp" : String }`                                |
+
+
+#### ROTA PARA ATUALIZAR DADOS DE UM ITEM
+
+| TIPO  | ROTA                         | O QUE SE ESPERA                                            |
+|-------|------------------------------|-----------------------------------------------------------|
+| PATCH | `/api/inventory//updateItemInvetary/:idWhatsapp/item/:idItem` | Campo que deseja alterar no item EX: JSON: `{ "xp" : Number }`                                |
 
 
 

@@ -3,8 +3,13 @@ import mongoose from "mongoose";
 
 // criando esquema de um item dentro do inventario
 const itemSchema = new mongoose.Schema({
+    idItem: {type: String, required: true, unique: true},
     nomeItem: {type: String, required: true},
-    quantidade: { type: Number, required: true}
+    quantidade: { type: Number, required: true},
+    xp: {type: Number},
+    dano: {type: Number}, 
+    defesa: {type: Number}
+
 })
 
 
