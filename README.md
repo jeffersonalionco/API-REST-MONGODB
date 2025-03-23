@@ -36,6 +36,12 @@
 |-------|------------------------------|-----------------------------------------------------------|
 | POST  | `/api/inventory/createInventary`| JSON: `{ "usuarioId": String, "items": [ { "nomeItem": String, "quatidade": Number}] }`                                |
 
+#### ROTA PARA BUSCAR DADOS INVENTARIO
+
+| TIPO  | ROTA                         | O QUE SE ESPERA                                            |
+|-------|------------------------------|-----------------------------------------------------------|
+| POST  | `/api/inventory/searchInventary` | JSON: `{ "idWhatsapp" : String }`                                |
+
 
 
 ---

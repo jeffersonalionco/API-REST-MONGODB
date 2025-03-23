@@ -5,17 +5,6 @@ import User from "../models/userModel.js";
 export const createUser = async (req, res) => {
     try {
         const { name, email, password, sexo, telefone, idWhatsapp} = req.body;
-        
-        // Verifica se o usuário já existe no banco
-        const existingUser = await User.findOne({ email });
-
-        if (existingUser) {
-            // Se já existir um usuário com o mesmo e-mail, retorna erro 409
-            return res.status(409).json({
-                status: 409,
-                message: "O usuário com esse e-mail já existe."
-            });
-        }
 
         // Cria um novo usuário
         const newUser = new User({ name, email, password, sexo, telefone, idWhatsapp});
@@ -103,18 +92,18 @@ export const updateUserByEmail = async (req, res) => {
 // Criar função que buscará dados do usuário no banco de dados
 export const userQuery = async (req, res) => {
     try {
-        // Necessário passar o email do usuário para buscar no banco
-        const { email } = req.body;
+        // Necessário passar o idWhatsapp do usuário para buscar no banco
+        const { idWhatsapp } = req.body;
 
-        if (!email) {
-            return res.status(400).json({ error: "O campo 'email' precisa estar informado" });
+        if (!idWhatsapp) {
+            return res.status(400).json({ error: "O campo 'idWhatsapp' precisa estar informado" });
         }
 
-        // Buscando o usuário no banco pelo email
-        const user = await User.findOne({ email });
+        // Buscando o usuário no banco pelo idWHatsapp
+        const user = await User.findOne({ idWhatsapp: idWhatsapp });
 
         if (!user) {
-            return res.status(404).json({ error: `Email ${email} não encontrado no banco de dados` });
+            return res.status(404).json({ error: `Não encontrado no banco de dados` });
         }
 
         // Retornando dados para a chamada da API

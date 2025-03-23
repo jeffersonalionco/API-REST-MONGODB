@@ -35,3 +35,37 @@ export const createInventary = async (req, res) => {
         res.status(400).json({ error: "Erro ao criar inventário" });
     }
 };
+
+
+// Post para buscar dados do invetario
+
+export const searchInventary = async (req, res) =>{ 
+    try{
+        const { idWhatsapp } = req.body;
+
+        if(!idWhatsapp){
+            return res.status(400).json({error: "O campo 'idWhatsapp' precisa estar preenchido "})
+        }
+
+        // Buscando dados do usuario 
+        const user = await User.findOne({idWhatsapp: idWhatsapp})
+
+        if(!user){
+            return res.status(400).json({error: "Usuario não existe no sistema"})
+        }
+
+        // Buscando dados do inventario, pelo id do usuario
+        const inventario = await Inventario.findOne({ usuarioId: user._id })
+
+        if(!inventario){
+            return res.status(400).json({error: "Não existe inventario para este usuario"})
+        }
+        
+        res.status(200).json({
+            data: inventario
+        })
+
+    }catch(errorr){
+        res.status(400).json({error: "Erro ao buscar dados so inventario", errorr})
+    }
+}
