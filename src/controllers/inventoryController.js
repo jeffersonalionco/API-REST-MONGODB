@@ -1,0 +1,37 @@
+import Inventario from "../models/inventoryModel.js";
+import User from "../models/userModel.js";
+import mongoose from 'mongoose';
+
+
+//Criar inventário
+export const createInventary = async (req, res) => {
+    try {
+        const { usuarioId, items } = req.body;
+
+        // Verificando se o usuário existe no banco
+        const user = await User.findOne({ idWhatsapp: usuarioId });
+        if (!user) {
+            return res.status(400).json({ error: "Usuário não encontrado no sistema" });
+        }
+
+        // Criar novo inventário e associar ao usuário
+        const newInventory = new Inventario({ usuarioId: user._id, items: items });
+
+        // Salvando o novo inventário no banco
+        await newInventory.save();
+
+        // Atribuindo o id do inventário ao usuário (associando o inventário ao usuário)
+        user.inventarios.push(newInventory._id);
+        await user.save();  // Salvando o usuário atualizado com o novo inventário
+
+        // Respondendo que o inventário foi criado com sucesso
+        res.status(201).json({
+            message: "Inventário criado e vinculado ao usuário com sucesso",
+            inventarioId: newInventory._id,
+            usuarioId: user._id
+        });
+    } catch (error) {
+        console.error(error);  // Registrando o erro no console para debugging
+        res.status(400).json({ error: "Erro ao criar inventário" });
+    }
+};
