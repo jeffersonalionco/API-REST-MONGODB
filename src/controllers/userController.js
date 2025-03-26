@@ -4,10 +4,10 @@ import User from "../models/userModel.js";
 // Criar um usuário no banco
 export const createUser = async (req, res) => {
     try {
-        const { name, email, password, sexo, telefone, idWhatsapp} = req.body;
+        const { name, username, nivel, email, password, sexo, telefone, idWhatsapp} = req.body;
 
         // Cria um novo usuário
-        const newUser = new User({ name, email, password, sexo, telefone, idWhatsapp});
+        const newUser = new User({ name, username, nivel, email, password, sexo, telefone, idWhatsapp});
         await newUser.save();
 
         // Retorna sucesso
@@ -44,46 +44,38 @@ export const deleteUser = async (req, res) => {
 }
 
 // Função para editar usuario dentro do banco
-export const updateUserByEmail = async (req, res) => {
+export const updateUser = async (req, res) => {
     try {
-        const { email, name, newEmail, password, sexo, telefone } = req.body
+        const { idWhatsapp, dados } = req.body;
 
-        if (!email) {
-            return res.status(400).json({ error: "O campo 'email' precisa estar informado" })
+        if (!idWhatsapp) {
+            return res.status(400).json({ error: "O campo 'idWhatsapp' precisa estar informado" });
         }
 
-        // Encontrar usuário pelo email
-        let user = await User.findOne({ email })
+        // Verifica se há campos para atualizar
+        if (Object.keys(dados).length === 0) {
+            return res.status(400).json({ error: "Nenhum campo para atualizar foi enviado" });
+        }
+
+        // Busca e atualiza o usuário dinamicamente
+        const user = await User.findOneAndUpdate(
+            { idWhatsapp },
+            { $set: dados },
+            { new: true } // Retorna o usuário atualizado
+        );
+
         if (!user) {
-            return res.status(404).json({ error: "Usuário não encontrado" })
+            return res.status(404).json({ error: "Usuário não encontrado no banco de dados" });
         }
 
-        let updateData = { name, password, sexo, telefone }
-        // Se houver nova senha, criptografa antes de salvar
-        /** 
-        
-        if (password) {
-            const salt = await bcrypt.genSalt(10)
-            updateData.password = await bcrypt.hash(password, salt)
-        }
-        */
-        
+        res.status(200).json({
+            message: "Usuário atualizado com sucesso",
+            user
+        });
 
-        // Se houver novo email, verifica se já existe
-        if (newEmail) {
-            const emailExists = await User.findOne({ email: newEmail })
-            if (emailExists) {
-                return res.status(400).json({ error: "O novo email já está em uso" })
-            }
-            updateData.email = newEmail
-        }
-
-        // Atualiza o usuário
-        user = await User.findOneAndUpdate({ email }, updateData, { new: true })
-
-        res.json({ message: "Usuário editado com sucesso", user })
     } catch (error) {
-        res.status(500).json({ error: error.message })
+        console.error("Erro ao atualizar usuário:", error);
+        res.status(500).json({ error: "Erro interno no servidor ao atualizar dados do usuário" });
     }
 }
 
@@ -102,18 +94,13 @@ export const userQuery = async (req, res) => {
         // Buscando o usuário no banco pelo idWHatsapp
         const user = await User.findOne({ idWhatsapp: idWhatsapp });
 
+        
         if (!user) {
-            return res.status(404).json({ error: `Não encontrado no banco de dados` });
+            return res.status(200).json({ message: "Usuário não encontrado", user: null });
         }
 
         // Retornando dados para a chamada da API
-        res.status(200).json({
-            message: "Busca realizada com sucesso",
-            name: user.name,
-            email: user.email,
-            sexo: user.sexo,
-            telefone: user.telefone
-        });
+        res.status(200).json({user});
 
     } catch (error) {
         console.error("Erro ao buscar usuário:", error);

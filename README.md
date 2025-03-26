@@ -1,140 +1,87 @@
-```md
-# Inicializar o Projeto
 
-Para rodar o projeto:
-```sh
-npm run start
-```
 
-Para desenvolvedores:
-```sh
-npm run dev
-```
 
-## Configuração do Ambiente
+#### Inicializar o projeto
 
-Crie ou edite seu arquivo `.env` na raiz do projeto com as seguintes variáveis:
+- Para rodar o projeto apenas:
+`npm run start`
 
-```env
-DB_URL=ADD-ULR-E-PORTA-DO-SEU-BANCO-MONGODB
-PORT=PORTA-QUE-VAI-RODAR-ESTA-API
-```
+- Para desenvolvedores:
+`npm run dev`
+
+
+Crie ou edite seu arquivo .env na raiz do projeto com as seguintes variavaeis:
+
+
+`DB_URL= ADD-ULR-E-PORTA-DO-SEU-BANCO-MONGODB`
+
+`PORT= PORTA-QUE-VAI-RODAR-ESTA-API`
 
 ---
 
-# Função Banco de Dados
-
-## Rotas de Usuário
-
-### Cadastrar um Novo Usuário
-**Tipo:** `POST`  
-**Rota:** `/api/users/register`  
-**JSON esperado:**
-```json
-{
-  "name": "String",
-  "email": "String",
-  "password": "String",
-  "sexo": "String",
-  "telefone": "String"
-}
-```
-
-### Editar um Usuário
-**Tipo:** `POST`  
-**Rota:** `/api/users/editar`  
-**JSON esperado:**
-```json
-{
-  "email": "String",  
-  "name": "String",  
-  "newEmail": "String",  
-  "password": "String",  
-  "sexo": "String",  
-  "telefone": "String"
-}
-```
-
-### Deletar um Usuário
-**Tipo:** `POST`  
-**Rota:** `/api/users/deletar`  
-**JSON esperado:**
-```json
-{
-  "email": "String"
-}
-```
-
-### Buscar Dados de um Usuário
-**Tipo:** `POST`  
-**Rota:** `/api/users/userQuery`  
-**JSON esperado:**
-```json
-{
-  "email": "String"
-}
-```
 
 ---
 
-# Função de Inventário
 
-## Rotas de Inventário
+## FUNÇÃO BANCO DE DADOS
 
-### Criar um Inventário
-**Tipo:** `POST`  
-**Rota:** `/api/inventory/createInventary`  
-**JSON esperado:**
-```json
-{
-  "usuarioId": "String",
-  "items": [
-    {
-      "idItem": "String",
-      "nomeItem": "String",
-      "quantidade": "Number",
-      "xp": "Number",
-      "dano": "Number",
-      "defesa": "Number"
-    }
-  ]
-}
-```
+#### ROTA PARA CADASTRAR UM NOVO USUÁRIO
 
-### Buscar Dados do Inventário
-**Tipo:** `POST`  
-**Rota:** `/api/inventory/searchInventary`  
-**JSON esperado:**
-```json
-{
-  "idWhatsapp": "String"
-}
-```
+| TIPO  | ROTA                         | O QUE SE ESPERA                                            |
+|-------|------------------------------|-----------------------------------------------------------|
+| POST  | `/api/users/register`         | JSON: `{ "name": String, "username": String, "nivel": String, "email": String, "password": String, "sexo": String, "telefone": String }` |
 
-### Atualizar Dados de um Item
-**Tipo:** `PATCH`  
-**Rota:** `/api/inventory/updateItemInvetary/:idWhatsapp/item/:idItem`  
-**JSON esperado:**
-```json
-{
-  "xp": "Number"
-}
-```
+#### ROTA PARA EDITAR UM USUÁRIO
+
+| TIPO  | ROTA                         | O QUE SE ESPERA                                            |
+|-------|------------------------------|-----------------------------------------------------------|
+| POST  | `/api/users/editar`           | Qualquer campo que deseja alterar EX: JSON: `{ "idWhatsapp": String, "dados": { "email": String, "name": String, "password": String, "sexo": String, "telefone": String } }` |
+
+#### ROTA PARA DELETAR UM USUÁRIO
+
+| TIPO  | ROTA                         | O QUE SE ESPERA                                            |
+|-------|------------------------------|-----------------------------------------------------------|
+| POST  | `/api/users/deletar`          | JSON: `{ "email": String }`                               |
+
+#### ROTA PARA BUSCAR DADOS DO USUARIO
+
+| TIPO  | ROTA                         | O QUE SE ESPERA                                            |
+|-------|------------------------------|-----------------------------------------------------------|
+| POST  | `/api/users/userQuery`          | JSON: `{ "email": String }`                               |
+
+
 
 ---
 
-# Função de Conversão
+## FUNÇÃO DE INVENTARIO
 
-## Rota para Converter Texto em Áudio
+#### ROTA PARA CRIAR UM INVENTARIO
 
-### Converter Texto para Áudio (Google Text-to-Speech)
-**Tipo:** `POST`  
-**Rota:** `/api/text-to-speech/convert`  
-**JSON esperado:**
-```json
-{
-  "text": "String"
-}
-```
-```
+| TIPO  | ROTA                         | O QUE SE ESPERA                                            |
+|-------|------------------------------|-----------------------------------------------------------|
+| POST  | `/api/inventory/createInventary`| JSON: `{ "usuarioId": String, "items": [ { "*idItem" : String, *"nomeItem": String, *"quatidade": Number, "xp": Number , "dano": Number, "defesa": Number}] }`                                |
 
+#### ROTA PARA BUSCAR DADOS INVENTARIO
+
+| TIPO  | ROTA                         | O QUE SE ESPERA                                            |
+|-------|------------------------------|-----------------------------------------------------------|
+| POST  | `/api/inventory/searchInventary` | JSON: `{ "idWhatsapp" : String }`                                |
+
+
+#### ROTA PARA ATUALIZAR DADOS DE UM ITEM
+
+| TIPO  | ROTA                         | O QUE SE ESPERA                                            |
+|-------|------------------------------|-----------------------------------------------------------|
+| PATCH | `/api/inventory//updateItemInvetary/:idWhatsapp/item/:idItem` | Campo que deseja alterar no item EX: JSON: `{ "xp" : Number }`                                |
+
+
+
+---
+
+## FUNÇÃO DE CONVERSÃO
+
+#### ROTA PARA CONVERTER TEXTO EM ÁUDIO USANDO O GOOGLE TEXT-TO-SPEECH
+
+| TIPO  | ROTA                         | O QUE SE ESPERA                                            |
+|-------|------------------------------|-----------------------------------------------------------|
+| POST  | `/aapi/text-to-speech/convert`| JSON: `{ "text": String }`                                |

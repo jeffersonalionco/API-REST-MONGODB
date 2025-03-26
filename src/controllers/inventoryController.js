@@ -32,7 +32,7 @@ export const createInventary = async (req, res) => {
         });
     } catch (error) {
         console.error(error);  // Registrando o erro no console para debugging
-        res.status(400).json({ error: "Erro ao criar inventário" });
+        res.status(400).json({ errorr: "Erro ao criar inventário", error });
     }
 };
 

@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 // Criando esquema para tabela usuario
 const userSchema = new mongoose.Schema({
     name: {type: String, required: true},
+    username: {type: String, required: true},
+    nivel:{type: Number, required: true},
     email: {type: String, required: true},
     password: {type: String ,required: true},
     sexo: {type: String, required: true},
