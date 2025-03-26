@@ -75,6 +75,12 @@ Crie ou edite seu arquivo .env na raiz do projeto com as seguintes variavaeis:
 | PATCH | `/api/inventory//updateItemInvetary/:idWhatsapp/item/:idItem` | Campo que deseja alterar no item EX: JSON: `{ "xp" : Number }`                                |
 
 
+#### ROTA PARA ADICIONAR UM ITEM NO INVENTARIO
+
+| TIPO  | ROTA                         | O QUE SE ESPERA                                            |
+|-------|------------------------------|-----------------------------------------------------------|
+| POST | `/api/inventory/addItemInventary` |`{ "idWhatsapp" : String, "item": {"*idItem" : String, *"nomeItem": String, *"quatidade": Number, "xp": Number , "dano": Number, "defesa": Number}}`                                |
+
 
 ---
 
