@@ -13,6 +13,7 @@ const itemSchema = new mongoose.Schema({
 })
 
 
+
 const inventorySchema = new mongoose.Schema({
     usuarioId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
     items: [itemSchema]
