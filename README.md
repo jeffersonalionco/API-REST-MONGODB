@@ -84,6 +84,18 @@ Crie ou edite seu arquivo .env na raiz do projeto com as seguintes variavaeis:
 
 ---
 
+## FUNÇÕES PARA LIDAR COM TABLE CIDADE X
+
+#### CRIAR ROTA PARA CRIAR TABLE CIDADEX
+
+| TIPO  | ROTA                         | O QUE SE ESPERA                                            |
+|-------|------------------------------|-----------------------------------------------------------|
+| POST  | `/api/cidadex/createCidadeX `| JSON: `{ "idCidade": String, "nomeCidade": String, "integrantes": [ { "idWhatsapp"}], "rankCidade": [ { "idWhatsapp": String, "pontos": Number }]}`                                |
+
+
+
+---
+
 ## FUNÇÃO DE CONVERSÃO
 
 #### ROTA PARA CONVERTER TEXTO EM ÁUDIO USANDO O GOOGLE TEXT-TO-SPEECH
